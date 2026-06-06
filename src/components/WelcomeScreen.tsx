@@ -1,3 +1,5 @@
+import { InstallPrompt } from './InstallPrompt';
+
 interface Props {
   onStart: () => void;
 }
@@ -59,6 +61,8 @@ export function WelcomeScreen({ onStart }: Props) {
         >
           年代を選んでテストを始める
         </button>
+
+        <InstallPrompt />
 
         <p className="text-center text-slate-500 text-xs mt-6">
           ※ 本テストは娯楽・自己評価目的です。正式な心理検査の代替ではありません。
