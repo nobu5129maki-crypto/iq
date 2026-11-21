@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import type { Question, Answer } from '../types';
 import { CATEGORY_LABELS } from '../types';
 import { MatrixGrid } from './MatrixGrid';
@@ -17,13 +17,15 @@ export function TestScreen({ questions, onComplete }: Props) {
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
   const [testStartTime] = useState(Date.now());
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const lockRef = useRef(false);
 
   const currentQuestion = questions[currentIndex];
-  const progress = ((currentIndex) / questions.length) * 100;
+  const progress = questions.length > 0 ? ((currentIndex + 1) / questions.length) * 100 : 0;
 
   const submitAnswer = useCallback(
     (selected: number) => {
-      if (isTransitioning) return;
+      if (lockRef.current || !currentQuestion) return;
+      lockRef.current = true;
       setIsTransitioning(true);
 
       const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
@@ -49,27 +51,28 @@ export function TestScreen({ questions, onComplete }: Props) {
           setTimeLeft(questions[currentIndex + 1].timeLimit);
           setQuestionStartTime(Date.now());
           setIsTransitioning(false);
+          lockRef.current = false;
         }
       }, 400);
     },
-    [answers, currentIndex, currentQuestion, isTransitioning, onComplete, questionStartTime, questions, testStartTime]
+    [answers, currentIndex, currentQuestion, onComplete, questionStartTime, questions, testStartTime]
   );
 
   useEffect(() => {
     if (isTransitioning) return;
 
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          submitAnswer(-1);
-          return 0;
-        }
-        return prev - 1;
-      });
+    const timer = window.setInterval(() => {
+      setTimeLeft((prev) => (prev <= 1 ? 0 : prev - 1));
     }, 1000);
 
-    return () => clearInterval(timer);
-  }, [currentIndex, isTransitioning, submitAnswer]);
+    return () => window.clearInterval(timer);
+  }, [currentIndex, isTransitioning]);
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      submitAnswer(-1);
+    }
+  }, [timeLeft, submitAnswer]);
 
   const handleSelect = (index: number) => {
     if (isTransitioning) return;
@@ -81,6 +84,8 @@ export function TestScreen({ questions, onComplete }: Props) {
       submitAnswer(selectedIndex);
     }
   };
+
+  if (!currentQuestion) return null;
 
   const timerColor =
     timeLeft <= 10 ? 'text-red-500' : timeLeft <= 20 ? 'text-amber-500' : 'text-blue-600';
@@ -107,9 +112,9 @@ export function TestScreen({ questions, onComplete }: Props) {
         </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center p-6">
+      <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
         <div className="max-w-3xl w-full animate-fade-in" key={currentQuestion.id}>
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2">
                 {([1, 2, 3] as const).map((d) => (

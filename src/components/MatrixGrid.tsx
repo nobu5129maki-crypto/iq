@@ -9,18 +9,18 @@ export function MatrixGrid({ visual }: Props) {
   const { grid } = visual;
 
   return (
-    <div className="flex justify-center my-6">
-      <div className="inline-block p-4 bg-slate-50 rounded-xl border border-slate-200">
+    <div className="flex justify-center my-4 sm:my-6">
+      <div className="w-full max-w-sm p-2 sm:p-4 bg-slate-50 rounded-xl border border-slate-200">
         <div
           className="grid gap-1"
-          style={{ gridTemplateColumns: 'auto repeat(3, 1fr)', gridTemplateRows: 'auto repeat(3, 1fr)' }}
+          style={{ gridTemplateColumns: '2.4rem repeat(3, minmax(0, 1fr))' }}
         >
-          <div className="w-12 h-8" />
+          <div className="h-7" />
 
           {[1, 2, 3].map((col) => (
             <div
               key={`col-${col}`}
-              className="h-8 flex items-center justify-center text-xs font-semibold text-blue-600 bg-blue-50 rounded-t-md"
+              className="h-7 flex items-center justify-center text-[10px] sm:text-xs font-semibold text-blue-600 bg-blue-50 rounded-t-md"
             >
               {col}列目
             </div>
@@ -28,13 +28,17 @@ export function MatrixGrid({ visual }: Props) {
 
           {grid.map((row, rowIndex) => (
             <Fragment key={`row-${rowIndex}`}>
-              <div className="w-12 flex items-center justify-center text-xs font-semibold text-violet-600 bg-violet-50 rounded-l-md">
+              <div className="flex items-center justify-center text-[10px] sm:text-xs font-semibold text-violet-600 bg-violet-50 rounded-l-md">
                 {rowIndex + 1}行目
               </div>
-              {row.map((cell, colIndex) => (
+              {row.map((cell, colIndex) => {
+                const label = cell === null ? '?' : cell;
+                const textSize =
+                  label.length >= 4 ? 'text-xs sm:text-sm' : label.length >= 2 ? 'text-sm sm:text-lg' : 'text-xl sm:text-3xl';
+                return (
                 <div
                   key={`${rowIndex}-${colIndex}`}
-                  className={`w-20 h-20 flex items-center justify-center text-3xl font-bold border-2 ${
+                  className={`aspect-square flex items-center justify-center font-bold border-2 leading-none px-0.5 ${textSize} ${
                     cell === null
                       ? 'border-dashed border-blue-400 bg-blue-50 text-blue-500 rounded-lg'
                       : rowIndex % 2 === colIndex % 2
@@ -42,9 +46,10 @@ export function MatrixGrid({ visual }: Props) {
                         : 'border-slate-200 bg-slate-100/80 text-slate-700 rounded-lg'
                   }`}
                 >
-                  {cell === null ? '?' : cell}
+                  {label}
                 </div>
-              ))}
+                );
+              })}
             </Fragment>
           ))}
         </div>

@@ -83,7 +83,7 @@ export const elementaryLowerQuestions: Question[] = [
     timeLimit: 45,
   },
 
-  // 言語类比
+  // 言語類比
   {
     id: 'el-v1',
     category: 'verbal',
@@ -172,7 +172,6 @@ export const elementaryLowerQuestions: Question[] = [
         { type: 'triangle', rotation: 0, filled: true, size: 'md' },
       ],
       questionShape: { type: 'triangle', rotation: 0, filled: true, size: 'md' },
-      displayMode: 'mirror',
     },
   },
   {

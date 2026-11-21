@@ -35,13 +35,14 @@ function getClassification(iq: number, ageGroup: AgeGroup): string {
   return isChild ? 'つぎはがんばろう' : '要支援域';
 }
 
-const AGE_NORMS: Record<AgeGroup, { meanRatio: number; spread: number }> = {
-  elementary_lower: { meanRatio: 0.42, spread: 3.0 },
-  elementary_upper: { meanRatio: 0.46, spread: 2.9 },
-  junior_high: { meanRatio: 0.48, spread: 2.85 },
-  senior_high: { meanRatio: 0.50, spread: 2.8 },
-  university: { meanRatio: 0.52, spread: 2.75 },
-  adult: { meanRatio: 0.50, spread: 2.8 },
+/** その年代で平均的な正答率。ここを IQ100 とする */
+const AGE_NORMS: Record<AgeGroup, { meanRatio: number }> = {
+  elementary_lower: { meanRatio: 0.42 },
+  elementary_upper: { meanRatio: 0.46 },
+  junior_high: { meanRatio: 0.48 },
+  senior_high: { meanRatio: 0.50 },
+  university: { meanRatio: 0.52 },
+  adult: { meanRatio: 0.50 },
 };
 
 export function calculateResult(
@@ -65,7 +66,9 @@ export function calculateResult(
 
   const ratio = maxScore > 0 ? rawScore / maxScore : 0;
   const norm = AGE_NORMS[ageGroup];
-  const zScore = (ratio - norm.meanRatio) * norm.spread;
+  // 平均正答率で IQ100、満点で IQ145（+3SD）になる幅。0点側は年代の平均正答率に応じて下がる。
+  const sd = (1 - norm.meanRatio) / 3;
+  const zScore = sd > 0 ? (ratio - norm.meanRatio) / sd : 0;
   const iq = Math.round(Math.max(55, Math.min(155, 100 + zScore * 15)));
   const percentile = Math.round(normalCDF((iq - 100) / 15) * 100);
 

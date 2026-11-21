@@ -12,14 +12,14 @@ export function WelcomeScreen({ onStart }: Props) {
           <img
             src="/app-icon.png"
             alt="IQ Test アプリアイコン"
-            className="w-20 h-20 rounded-2xl mb-6 shadow-lg shadow-blue-500/30"
+            className="w-20 h-20 rounded-2xl mb-6 shadow-lg shadow-blue-500/30 object-cover"
           />
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             知能指数テスト
           </h1>
           <p className="text-lg text-slate-300 max-w-lg mx-auto leading-relaxed">
             5つの認知領域を測定する、科学的アプローチに基づいた
-            年代別の標準化IQテストです
+            <span className="whitespace-nowrap">年代別</span>の標準化IQテストです
           </p>
         </div>
 
@@ -48,7 +48,7 @@ export function WelcomeScreen({ onStart }: Props) {
             <div className="flex flex-wrap gap-3 text-sm text-slate-300">
               <span>🔷 図形推理</span>
               <span>🔢 数列推理</span>
-              <span>💬 言語类比</span>
+              <span>💬 言語類比</span>
               <span>🧩 論理推理</span>
               <span>📐 空間認知</span>
             </div>

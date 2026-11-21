@@ -116,7 +116,6 @@ export const juniorHighQuestions: Question[] = [
     spatial: {
       shapes: [{ type: 'diamond', rotation: 0, filled: false, size: 'md' }],
       questionShape: { type: 'diamond', rotation: 0, filled: false, size: 'md' },
-      displayMode: 'mirror',
     },
   },
 ];

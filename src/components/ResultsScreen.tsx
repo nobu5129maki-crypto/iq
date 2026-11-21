@@ -88,9 +88,9 @@ export function ResultsScreen({ result, onReview, onRetry }: Props) {
               {classification}
             </span>
             <p className="text-slate-500 text-sm mt-3">
-              {getAgeGroupResultLabel(ageGroup)} ・ 上位{' '}
-              <span className="font-bold text-slate-700">{100 - percentile}%</span>
-              {' '}(パーセンタイル {percentile})
+              {getAgeGroupResultLabel(ageGroup)} ・ 同じ年代の人のうち、およそ
+              <span className="font-bold text-slate-700">{percentile}%</span>
+              より高い結果です（パーセンタイル {percentile}）
             </p>
           </div>
 
@@ -155,16 +155,33 @@ export function ResultsScreen({ result, onReview, onRetry }: Props) {
         </div>
 
         <div className="mt-6 bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/10">
-          <h4 className="text-white font-semibold mb-3 text-sm">IQ分布の参考</h4>
+          <h4 className="text-white font-semibold mb-3 text-sm">
+            {isChild ? 'スコアの目安' : 'IQ分布の参考'}
+          </h4>
           <div className="grid grid-cols-2 gap-2 text-xs text-slate-300">
-            <span>145+ : 非常に優秀（0.1%）</span>
-            <span>130-144 : 優秀（2%）</span>
-            <span>120-129 : やや優秀（9%）</span>
-            <span>110-119 : 平均より上（16%）</span>
-            <span>90-109 : 平均（50%）</span>
-            <span>80-89 : 平均より下（16%）</span>
-            <span>70-79 : 境界域（2%）</span>
-            <span>70未満 : 要支援域</span>
+            {isChild ? (
+              <>
+                <span>145+ : とてもすばらしい</span>
+                <span>130-144 : とてもよくできました</span>
+                <span>120-129 : よくできました</span>
+                <span>110-119 : がんばりました</span>
+                <span>90-109 : ふつう</span>
+                <span>80-89 : もうすこし</span>
+                <span>70-79 : れんしゅうしよう</span>
+                <span>70未満 : つぎはがんばろう</span>
+              </>
+            ) : (
+              <>
+                <span>145+ : 非常に優秀（0.1%）</span>
+                <span>130-144 : 優秀（2%）</span>
+                <span>120-129 : やや優秀（9%）</span>
+                <span>110-119 : 平均より上（16%）</span>
+                <span>90-109 : 平均（50%）</span>
+                <span>80-89 : 平均より下（16%）</span>
+                <span>70-79 : 境界域（2%）</span>
+                <span>70未満 : 要支援域</span>
+              </>
+            )}
           </div>
         </div>
       </div>

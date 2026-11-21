@@ -46,9 +46,9 @@ export const standardQuestions: Question[] = [
     timeLimit: 60,
     visual: {
       grid: [
-        ['◆', '■', '▲'],
-        ['■', '●', '●'],
-        ['▲', '●', null],
+        ['◆', '■', '◆'],
+        ['▲', '◆', '▲'],
+        ['◆', '■', null],
       ],
       missingIndex: 8,
     },
@@ -74,7 +74,7 @@ export const standardQuestions: Question[] = [
     id: 'm5',
     category: 'matrix',
     difficulty: 3,
-    prompt: '図形が時計回りに回転しながら増えます。?を選んでください',
+    prompt: '各行で、左の図形の前に●が1つずつ増えます。?を選んでください',
     options: ['●●▲', '▲●', '●▲', '●●◆'],
     correctIndex: 3,
     timeLimit: 75,
@@ -91,7 +91,7 @@ export const standardQuestions: Question[] = [
     id: 'm6',
     category: 'matrix',
     difficulty: 3,
-    prompt: '外周の図形が内側に移動する規則です。?を選んでください',
+    prompt: '四隅は同じ図形、各辺の中央は別の図形です。?を選んでください',
     options: ['●', '■', '▲', '◆'],
     correctIndex: 0,
     timeLimit: 75,
@@ -161,7 +161,7 @@ export const standardQuestions: Question[] = [
     timeLimit: 60,
   },
 
-  // ── 言語类比 (Verbal Analogies) ──
+  // ── 言語類比 (Verbal Analogies) ──
   {
     id: 'v1',
     category: 'verbal',
@@ -222,9 +222,9 @@ export const standardQuestions: Question[] = [
     id: 'l1',
     category: 'logic',
     difficulty: 1,
-    prompt: 'すべてのAはBである。XはAである。Xは？',
-    options: ['Aである', 'Bである', 'AでもBでもない', 'わからない'],
-    correctIndex: 1,
+    prompt: 'すべてのAはBである。XはAである。Xについて必ず言えるのは？',
+    options: ['Bである', 'Bではない', 'AでもBでもない', 'わからない'],
+    correctIndex: 0,
     timeLimit: 45,
   },
   {
@@ -249,7 +249,7 @@ export const standardQuestions: Question[] = [
     id: 'l4',
     category: 'logic',
     difficulty: 2,
-    prompt: '5人が並んでいる。AはBより左。CはDより右。BはEより左。Eは？',
+    prompt: '5人が並んでいる。EはBより左。BはAより左。DはCより左。AはDより左。Eは？',
     options: ['真ん中', '一番右', '一番左', 'Cの隣'],
     correctIndex: 2,
     timeLimit: 60,
@@ -258,9 +258,9 @@ export const standardQuestions: Question[] = [
     id: 'l5',
     category: 'logic',
     difficulty: 3,
-    prompt: '3つの箱がある。1つだけ中身の記述が真。赤箱「金は青箱」青箱「金はここではない」黄箱「金は赤箱」。金は？',
+    prompt: '3つの箱がある。1つだけ札の内容が正しい。赤箱「金は青箱」青箱「金は赤箱」黄箱「金は青箱」。金は？',
     options: ['赤箱', '青箱', '黄箱', 'どれでもない'],
-    correctIndex: 1,
+    correctIndex: 0,
     timeLimit: 90,
   },
   {
@@ -304,7 +304,6 @@ export const standardQuestions: Question[] = [
         { type: 'triangle', rotation: 0, filled: true, size: 'md' },
       ],
       questionShape: { type: 'triangle', rotation: 0, filled: true, size: 'md' },
-      displayMode: 'mirror',
     },
   },
   {
@@ -340,8 +339,8 @@ export const standardQuestions: Question[] = [
     id: 's5',
     category: 'spatial',
     difficulty: 3,
-    prompt: 'L字型の図形を270°回転させた後、左右反転すると元の位置関係と一致するのは？',
-    options: ['90°回転のみ', '180°回転のみ', '270°回転のみ', '左右反転のみ'],
+    prompt: 'L字型の図形を時計回りに90°回したあと、さらに270°回すと最初と比べてどうなりますか？',
+    options: ['元の向きに戻る', '180°回した向き', '左右が反転した向き', '上下が反転した向き'],
     correctIndex: 0,
     timeLimit: 75,
     spatial: {

@@ -124,7 +124,7 @@ export const AGE_GROUP_ICONS: Record<AgeGroup, string> = {
 export const CATEGORY_LABELS: Record<Category, string> = {
   matrix: '図形推理',
   numeric: '数列推理',
-  verbal: '言語类比',
+  verbal: '言語類比',
   logic: '論理推理',
   spatial: '空間認知',
 };

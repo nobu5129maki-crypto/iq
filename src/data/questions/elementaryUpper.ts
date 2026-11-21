@@ -29,8 +29,8 @@ export const elementaryUpperQuestions: Question[] = [
     timeLimit: 50,
     visual: {
       grid: [
-        ['●', '●●', '■■'],
-        ['▲', '▲▲', '■■■'],
+        ['●', '●●', '●●●'],
+        ['▲', '▲▲', '▲▲▲'],
         ['◆', '◆◆', null],
       ],
       missingIndex: 8,
@@ -109,7 +109,7 @@ export const elementaryUpperQuestions: Question[] = [
     timeLimit: 50,
   },
 
-  // 言語类比
+  // 言語類比
   {
     id: 'eu-v1',
     category: 'verbal',
@@ -172,7 +172,7 @@ export const elementaryUpperQuestions: Question[] = [
     difficulty: 2,
     prompt: '3人が並んでいる。AはBより左。CはAより右。いちばん左は？',
     options: ['A', 'B', 'C', 'わからない'],
-    correctIndex: 1,
+    correctIndex: 0,
     timeLimit: 60,
   },
   {
@@ -181,7 +181,7 @@ export const elementaryUpperQuestions: Question[] = [
     difficulty: 2,
     prompt: '赤・青・黄の3色のボールがある。赤は青より大きい。黄は赤より小さい。いちばん小さいのは？',
     options: ['赤', '青', '黄', 'わからない'],
-    correctIndex: 2,
+    correctIndex: 3,
     timeLimit: 60,
   },
 
@@ -210,7 +210,6 @@ export const elementaryUpperQuestions: Question[] = [
     spatial: {
       shapes: [{ type: 'lshape', rotation: 0, filled: true, size: 'md' }],
       questionShape: { type: 'lshape', rotation: 0, filled: true, size: 'md' },
-      displayMode: 'mirror',
     },
   },
   {
@@ -230,7 +229,7 @@ export const elementaryUpperQuestions: Question[] = [
     id: 'eu-s4',
     category: 'spatial',
     difficulty: 2,
-    prompt: '紙を半分に折って切ると、開いたときの形として正しいのは？',
+    prompt: '紙を縦の中心で半分に折ってから切ると、開いた形に必ず当てはまるのは？',
     options: ['左右対称', '上下対称', '点対称のみ', '対称にならない'],
     correctIndex: 0,
     timeLimit: 60,
@@ -354,7 +353,6 @@ export const elementaryUpperQuestions: Question[] = [
     spatial: {
       shapes: [{ type: 'triangle', rotation: 0, filled: true, size: 'md' }],
       questionShape: { type: 'triangle', rotation: 0, filled: true, size: 'md' },
-      displayMode: 'mirror',
     },
   },
 ];
