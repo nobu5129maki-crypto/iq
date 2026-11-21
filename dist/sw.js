@@ -1,1 +1,26 @@
-if(!self.define){let e,i={};const s=(s,n)=>(s=new URL(s+".js",n).href,i[s]||new Promise(i=>{if("document"in self){const e=document.createElement("script");e.src=s,e.onload=i,document.head.appendChild(e)}else e=s,importScripts(s),i()}).then(()=>{let e=i[s];if(!e)throw new Error(`Module ${s} didn’t register its module`);return e}));self.define=(n,o)=>{const r=e||("document"in self?document.currentScript.src:"")||location.href;if(i[r])return;let d={};const c=e=>s(e,r),t={module:{uri:r},exports:d,require:c};i[r]=Promise.all(n.map(e=>t[e]||c(e))).then(e=>(o(...e),d))}}define(["./workbox-9c191d2f"],function(e){"use strict";self.skipWaiting(),e.clientsClaim(),e.precacheAndRoute([{url:"index.html",revision:"2a8b56841f238890adfcdaec43cfbc7d"},{url:"icons.svg",revision:"21c7473c592c67dc87223d49892c8f0a"},{url:"favicon.svg",revision:"7e840862161341271697daa99a40d76b"},{url:"app-icon.png",revision:"0cfbcd5d83f4d6072e54854c04ddf71b"},{url:"assets/workbox-window.prod.es5-Bd17z0YL.js",revision:null},{url:"assets/index-CF3lWOoZ.js",revision:null},{url:"assets/index-C8HAeIgT.css",revision:null},{url:"app-icon.png",revision:"0cfbcd5d83f4d6072e54854c04ddf71b"},{url:"manifest.webmanifest",revision:"ad44d343397102141d4b10a2edfbfc78"}],{}),e.cleanupOutdatedCaches(),e.registerRoute(new e.NavigationRoute(e.createHandlerBoundToURL("index.html")))});
+/* ログインの外に置くサービスワーカー。アプリ本体はキャッシュしない。 */
+self.addEventListener("install", function (event) {
+  event.waitUntil(self.skipWaiting());
+});
+
+self.addEventListener("activate", function (event) {
+  event.waitUntil(
+    caches
+      .keys()
+      .then(function (keys) {
+        return Promise.all(
+          keys.map(function (key) {
+            return caches.delete(key);
+          })
+        );
+      })
+      .then(function () {
+        return self.clients.claim();
+      })
+  );
+});
+
+self.addEventListener("fetch", function (event) {
+  if (event.request.method !== "GET") return;
+  event.respondWith(fetch(event.request));
+});
