@@ -10,7 +10,7 @@ export function WelcomeScreen({ onStart }: Props) {
       <div className="max-w-2xl w-full animate-fade-in">
         <div className="text-center mb-10">
           <img
-            src="/app-icon.png"
+            src="./app-icon.png"
             alt="IQ Test アプリアイコン"
             className="w-20 h-20 rounded-2xl mb-6 shadow-lg shadow-blue-500/30 object-cover"
           />
